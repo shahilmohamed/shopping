@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "staff", catalog = "staff_data")
-public class Staff {
+public class Staff implements Comparable<Staff>{
 	int id;
 	String name;
 	String location;
@@ -40,6 +40,11 @@ public class Staff {
 	}
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+	@Override
+	public int compareTo(Staff o) {
+		// TODO Auto-generated method stub
+		return this.name.compareTo(o.name);
 	}
 
 }

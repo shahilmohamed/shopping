@@ -3,6 +3,7 @@ package com.jsp.shopping.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +19,7 @@ import com.jsp.shopping.service.StaffServices;
 public class SpringController {
 
 	@Autowired
-	StaffServices springservices;
+	StaffServices staffservices;
 	@Autowired
 	StaffDao dao;
 	@RequestMapping("check")
@@ -31,20 +32,39 @@ public class SpringController {
 	public List<Staff> getStaff()
 	{
 		System.out.println("In controller");
-		List<Staff> list = springservices.getStaff();
+		List<Staff> list = staffservices.getStaff();
+		return list;
+	}
+	
+	@GetMapping("getsortedstaff")
+	public List<Staff> getSortedStaff()
+	{
+		List<Staff> list = staffservices.getSortedStaff();
 		return list;
 	}
 	
 	@GetMapping("getstaffbyid/{id}")
 	public List<Staff> getStaffById(@PathVariable int id)
 	{
-		List<Staff> list = StaffServices.getStaffById(id);
+		List<Staff> list = staffservices.getStaffById(id);
+		return list;
+	}
+	@GetMapping("getstaffbyname/{name}")
+	public List<Staff> getStaffByName(@PathVariable String name)
+	{
+		List<Staff> list = staffservices.getStaffByName(name);
 		return list;
 	}
 	@PostMapping("insertstaff")
-	public static String insert(@RequestBody Staff staff)
+	public String insert(@RequestBody Staff staff)
 	{
-		String res = StaffServices.insert(staff);
+		String res = staffservices.insert(staff);
+		return res;
+	}
+	@DeleteMapping("deletestaff/{id}")
+	public String delete(@PathVariable int id)
+	{
+		String res = staffservices.delete(id);
 		return res;
 	}
 	
